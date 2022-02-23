@@ -135,7 +135,7 @@ I ran the below code to test my cmd for syntax error and as shown, the result is
  ![image](https://user-images.githubusercontent.com/98546783/155305515-989a27ed-1079-4a71-92af-db23f22b72ff.png)
  
  
- So i proceeded to write check the browser on what I wrote on http://<Public-IP-Address>:80. I saw the exact same thing on the command above
+  - So i proceeded to write check the browser on what I wrote on http://<Public-IP-Address>:80. I saw the exact same thing on the command above
 
  
  ![image](https://user-images.githubusercontent.com/98546783/155305817-7904b252-e294-41b4-9a6f-c055344a29f0.png)
@@ -146,7 +146,7 @@ I ran the below code to test my cmd for syntax error and as shown, the result is
  I Opened a new file called info.php within my document root in my text editor to confirm Nginx can correctly hand .php files off to my PHP processor:
 
  
-sudo nano /var/www/projectdomain/info.php
+- sudo nano /var/www/projectdomain/info.php
  
  
  ![image](https://user-images.githubusercontent.com/98546783/155306632-65b6c7dc-7704-431e-a307-740c065abfb0.png) 
@@ -175,7 +175,7 @@ sudo rm /var/www/projectdomain/info.php
 
 ![image](https://user-images.githubusercontent.com/98546783/155308312-9a77946f-4a74-4634-ba31-946f14c60f2a.png)
 
----
+
 
 ### RETRIEVING DATA FROM MYSQL DATABASE WITH PHP ###
 
@@ -183,7 +183,7 @@ sudo rm /var/www/projectdomain/info.php
 - The aim is to do a simple "To do list" and configure access to it, so the Nginx website 
 would be able to query data from the DB and display it.
 
----
+
 - I ran the command below to connect to mysql
 'sudo mysql'
 
@@ -238,7 +238,7 @@ mysql> SHOW DATABASES;
 
 
 
-I proceeded to create a todo list:
+- I proceeded to create a todo list:
 ![image](https://user-images.githubusercontent.com/98546783/155323435-1b242538-b59e-4e66-9e66-b392ef4c95e7.png)
 
 
@@ -258,7 +258,7 @@ mysql>  SELECT * FROM example_database.todo_list;
 
 -------------------------------
 
--I exited "exit"
+- I exited "exit"
 
 
 
@@ -294,9 +294,15 @@ try {
 
 - After running the above code, and running http://<Public_domain_or_IP>/todo_list.php
 
+
+
 I discovered an error message. I don't have the screenshot anymore but it was pointing to the password i used in the block of code above. 
 
+
+
 I had to use the right password and accessed my public IP and it went through
+
+
 
 ![image](https://user-images.githubusercontent.com/98546783/155329462-e093c490-4761-4de0-bebb-fa8c8ad98903.png)
 
