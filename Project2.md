@@ -226,7 +226,9 @@ I discovered an error message. I don't have the screenshot anymore but it was po
 ![image](https://user-images.githubusercontent.com/98546783/155329462-e093c490-4761-4de0-bebb-fa8c8ad98903.png)
 
 
+![12](https://user-images.githubusercontent.com/98546783/155330256-33d20e97-cf93-4a22-9321-3b9e1cde42bc.jpg)
 
+The image above shows PHP environment is ready to connect and interact with your MySQL server.
 
 
 
