@@ -61,7 +61,9 @@ I created a directory structure within /var/www for my your_domain website, leav
 sudo mkdir /var/www/projectdomain.
  
  The below command did the following with screenshot as reference below;
+ 
  1. Create the root web directory for my domain ================================ "sudo mkdir /var/www/projectdomain"
+ 
  2.Assign ownership of the directory with the $USER environment variable, which will reference my current system user: === "sudo chown -R $USER:$USER /var/www/projectdomain"
  
  3.open a new configuration file in Nginx’s sites-available directory using Nano == " sudo nano /etc/nginx/sites-available/projectdomain"
@@ -70,7 +72,8 @@ sudo mkdir /var/www/projectdomain.
  
 ![11](https://user-images.githubusercontent.com/98546783/155245261-35cfa032-20f1-4988-83ff-d4b4bf40556c.jpg)
 
-The command below was pasted in the confif. file
+The command below was pasted in the config. file
+ 
  #/etc/nginx/sites-available/projectdomain
 
 server {
@@ -106,54 +109,72 @@ server {
  When i was done typing the command, I saved and closed the file using nano CTRL+X and then y and ENTER to confirm. After then I Activated my configuration by linking to the config file from Nginx’s sites-enabled directory: using the command below:
  
  sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/
+
  Reference screenshot below:
  
  ![image](https://user-images.githubusercontent.com/98546783/155303745-a4d981f6-5b60-4dba-97c7-6781ce767211.png)
+ 
 
 I ran the below code to test my cmd for syntax error and as shown, the result is sucessful.
  
  ![image](https://user-images.githubusercontent.com/98546783/155304291-b478a192-23eb-4022-aa67-e8897028fa46.png)
  
  The below 2cmds is to  disable default Nginx host that is currently configured to listen on port 80; and reload Nginx to apply the changes:
+ 
  'sudo unlink /etc/nginx/sites-enabled/default'
  'sudo systemctl reload nginx'
  
  ![image](https://user-images.githubusercontent.com/98546783/155305150-3eb25623-9ec1-4d93-b9e7-4ac586964bd8.png)
  
+ 
  Then I Created an index.html file in that location so that we can test that your new server block works as expected.
+ 
  sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectdomain/index.html
+ 
  
  ![image](https://user-images.githubusercontent.com/98546783/155305515-989a27ed-1079-4a71-92af-db23f22b72ff.png)
  
+ 
  So i proceeded to write check the browser on what I wrote on http://<Public-IP-Address>:80. I saw the exact same thing on the command above
 
+ 
  ![image](https://user-images.githubusercontent.com/98546783/155305817-7904b252-e294-41b4-9a6f-c055344a29f0.png)
+ 
  
  ## TESTING PHP WITH NGINX ##
  I Opened a new file called info.php within my document root in my text editor to confirm Nginx can correctly hand .php files off to my PHP processor:
 
+ 
 sudo nano /var/www/projectdomain/info.php
  
  ![image](https://user-images.githubusercontent.com/98546783/155306632-65b6c7dc-7704-431e-a307-740c065abfb0.png)
  
+ 
  Afterwards, I pasted the php code and saved it. (to return information about my server)
+ 
  
  <?php
 phpinfo();
+
 
 i tried the cmd on my browsser and got the welcome message
 http://`server_domain_or_IP`/info.php
 
 ![image](https://user-images.githubusercontent.com/98546783/155307893-555050a5-ad27-41eb-aea5-c6396bf123c0.png)
 
+
 I used below cmd to remove the file I created:
+
 
 sudo rm /var/www/projectdomain/info.php
 
 ![image](https://user-images.githubusercontent.com/98546783/155308312-9a77946f-4a74-4634-ba31-946f14c60f2a.png)
 
 ### RETRIEVING DATA FROM MYSQL DATABASE WITH PHP ###
-The aim is to do a simple "To do list" and configure access to it, so the Nginx website would be able to query data from the DB and display it.
+
+The aim is to do a simple "To do list" and configure access to it, so the Nginx website 
+would be able to query data from the DB and display it.
+
 I ran the command below to connect to mysql
 'sudo mysql'
 
@@ -168,8 +189,13 @@ The below cmd was to give this user permission over the example_database databas
 mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';
 
 Refenence below screenshot:
+
 ![image](https://user-images.githubusercontent.com/98546783/155321042-f9087fdd-a6b2-4800-8927-a1fa942e417f.png)
+
+
+
 ![image](https://user-images.githubusercontent.com/98546783/155321381-db54712d-5960-49ae-9797-af558ec67e57.png)
+
 
 ![image](https://user-images.githubusercontent.com/98546783/155321654-409d7065-061a-4c36-96c5-4e842476af5e.png)
 
@@ -177,29 +203,43 @@ AFterwards, I exited.
 mysql> exit
 
 I tested if the newuser has permission in the database using:
+
 mysql -u example_user -p
+
+
 mysql> SHOW DATABASES;
 
 ![image](https://user-images.githubusercontent.com/98546783/155322953-64010115-1542-4e14-8ee7-2c37d94afe1d.png)
 
+
 I proceeded to create a todo list:
 ![image](https://user-images.githubusercontent.com/98546783/155323435-1b242538-b59e-4e66-9e66-b392ef4c95e7.png)
 
+
 i inserted the roles using *mysql> INSERT INTO example_database.todo_list (content) VALUES ("My first important item");*
+
 
  To confirm that the data was successfully saved to my table, I ran:
 
+
 mysql>  SELECT * FROM example_database.todo_list;
+
+
 Below is the the following output i got:
 
 ![image](https://user-images.githubusercontent.com/98546783/155323893-eb507b2b-2731-4d88-b4c1-2039d8224d2f.png)
 
+
 I exited "exit"
 Then i Created a new PHP file in my custom web root directory using vi
 
+
 nano /var/www/projectdomain/todo_list.php
 
+
 I pasted the code below
+
+
 <?php
 $user = "example_user";
 $password = "password";
@@ -221,12 +261,16 @@ try {
 --------------
 **ROADBLOCK2** :
 After running the above code, and running http://<Public_domain_or_IP>/todo_list.php
-I discovered an error message. I don't have the screenshot anymore but it was pointing to the password i used in the block of code above. I had to use the right password and accessed my public IP and it went through
+
+I discovered an error message. I don't have the screenshot anymore but it was pointing to the password i used in the block of code above. 
+I had to use the right password and accessed my public IP and it went through
 
 ![image](https://user-images.githubusercontent.com/98546783/155329462-e093c490-4761-4de0-bebb-fa8c8ad98903.png)
 
 
+
 ![12](https://user-images.githubusercontent.com/98546783/155330256-33d20e97-cf93-4a22-9321-3b9e1cde42bc.jpg)
+
 
 The image above shows PHP environment is ready to connect and interact with your MySQL server.
 
