@@ -239,9 +239,9 @@ mysql>  SELECT * FROM example_database.todo_list;
 
 
 Below is the the following output i got:
-
+--------------------------------------------------------
 ![image](https://user-images.githubusercontent.com/98546783/155323893-eb507b2b-2731-4d88-b4c1-2039d8224d2f.png)
-
+-------------------------------
 
 I exited "exit"
 Then i Created a new PHP file in my custom web root directory using vi
@@ -251,7 +251,7 @@ nano /var/www/projectdomain/todo_list.php
 
 
 I pasted the code below
-
+------------------------------
 
 <?php
 $user = "example_user";
@@ -271,7 +271,7 @@ try {
     die();
 }
 
-
+---------------------------
 **ROADBLOCK2** :
 
 After running the above code, and running http://<Public_domain_or_IP>/todo_list.php
