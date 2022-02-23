@@ -60,12 +60,55 @@ I created a directory structure within /var/www for my your_domain website, leav
 
 sudo mkdir /var/www/projectdomain.
  
- The below command did the following with screenshot as refercne below;
+ The below command did the following with screenshot as reference below;
  1. Create the root web directory for my domain ================================ "sudo mkdir /var/www/projectdomain"
  2.Assign ownership of the directory with the $USER environment variable, which will reference my current system user: === "sudo chown -R $USER:$USER /var/www/projectdomain"
+ 
  3.open a new configuration file in Nginx’s sites-available directory using Nano == " sudo nano /etc/nginx/sites-available/projectdomain"
  
  
  
 ![11](https://user-images.githubusercontent.com/98546783/155245261-35cfa032-20f1-4988-83ff-d4b4bf40556c.jpg)
 
+The command below was pasted in the confif. file
+ #/etc/nginx/sites-available/projectdomain
+
+server {
+    listen 80;
+    server_name projectdomain www.projectdomain;
+    root /var/www/projectdomain;
+
+    index index.html index.htm index.php;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+     }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+}
+ 
+ As per the block code above, below is what they do.
+ *listen* — Defines what port Nginx will listen on. In this case, it will listen on port 80, the default port for HTTP.
+*root* — Defines the document root where the files served by this website are stored.
+ 
+*index* — Defines in which order Nginx will prioritize index files for this website. It is a common practice to list index.html files with a higher precedence than index.php files to allow for quickly setting up a maintenance landing page in PHP applications. You can adjust these settings to better suit your application needs.
+ 
+*server_name* — Defines which domain names and/or IP addresses this server block should respond for. Point this directive to your server’s domain name or public IP address.
+ 
+ When i was done typing the command, I saved and closed the file using nano CTRL+X and then y and ENTER to confirm. After then I Activated my configuration by linking to the config file from Nginx’s sites-enabled directory: using the command below:
+ 
+ sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/
+ Reference screenshot below:
+ 
+ ![image](https://user-images.githubusercontent.com/98546783/155303745-a4d981f6-5b60-4dba-97c7-6781ce767211.png)
+
+
+ 
