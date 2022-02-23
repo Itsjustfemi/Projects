@@ -141,29 +141,35 @@ I ran the below code to test my cmd for syntax error and as shown, the result is
  ![image](https://user-images.githubusercontent.com/98546783/155305817-7904b252-e294-41b4-9a6f-c055344a29f0.png)
  
  
- ### TESTING PHP WITH NGINX ###
+ ## TESTING PHP WITH NGINX ##
+ 
  I Opened a new file called info.php within my document root in my text editor to confirm Nginx can correctly hand .php files off to my PHP processor:
 
  
 sudo nano /var/www/projectdomain/info.php
  
- ![image](https://user-images.githubusercontent.com/98546783/155306632-65b6c7dc-7704-431e-a307-740c065abfb0.png)
+ 
+ ![image](https://user-images.githubusercontent.com/98546783/155306632-65b6c7dc-7704-431e-a307-740c065abfb0.png) 
  
  
- Afterwards, I pasted the php code and saved it. (to return information about my server)
+ 
+- Afterwards, I pasted the php code and saved it. (to return information about my server)
+ 
  
  
  <?php
 phpinfo();
 
 
-i tried the cmd on my browsser and got the welcome message
+- i tried the cmd on my browsser and got the welcome message
+
 http://`server_domain_or_IP`/info.php
+
 
 ![image](https://user-images.githubusercontent.com/98546783/155307893-555050a5-ad27-41eb-aea5-c6396bf123c0.png)
 
 
-I used below cmd to remove the file I created:
+- I used below cmd to remove the file I created:
 
 
 sudo rm /var/www/projectdomain/info.php
@@ -174,19 +180,20 @@ sudo rm /var/www/projectdomain/info.php
 ### RETRIEVING DATA FROM MYSQL DATABASE WITH PHP ###
 
 
-The aim is to do a simple "To do list" and configure access to it, so the Nginx website 
+- The aim is to do a simple "To do list" and configure access to it, so the Nginx website 
 would be able to query data from the DB and display it.
 
-I ran the command below to connect to mysql
+- I ran the command below to connect to mysql
 'sudo mysql'
 
-To create a new database, I run the following command from your MySQL console:
+- To create a new database, I run the following command from your MySQL console:
 
 
  CREATE DATABASE `example_database`;        (the name of the database is example_database)
 
 
-The below command was to create a new user **example_user** 
+- The below command was to create a new user **example_user** 
+
 CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 
 The below cmd was to give this user permission over the example_database database:
@@ -238,13 +245,18 @@ i inserted the roles using *mysql> INSERT INTO example_database.todo_list (conte
 mysql>  SELECT * FROM example_database.todo_list;
 
 
-Below is the the following output i got:
---------------------------------------------------------
+-Below is the the following output i got:
+---------------------------------
+
 ![image](https://user-images.githubusercontent.com/98546783/155323893-eb507b2b-2731-4d88-b4c1-2039d8224d2f.png)
+
 -------------------------------
 
-I exited "exit"
-Then i Created a new PHP file in my custom web root directory using vi
+-I exited "exit"
+
+
+
+- Then i Created a new PHP file in my custom web root directory using vi
 
 
 nano /var/www/projectdomain/todo_list.php
@@ -274,7 +286,7 @@ try {
 ---------------------------
 **ROADBLOCK2** :
 
-After running the above code, and running http://<Public_domain_or_IP>/todo_list.php
+- After running the above code, and running http://<Public_domain_or_IP>/todo_list.php
 
 I discovered an error message. I don't have the screenshot anymore but it was pointing to the password i used in the block of code above. 
 
