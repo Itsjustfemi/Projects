@@ -155,11 +155,8 @@ sudo nano /var/www/projectdomain/info.php
  
 - Afterwards, I pasted the php code and saved it. (to return information about my server)
  
- 
- 
  <?php
 phpinfo();
-
 
 - i tried the cmd on my browsser and got the welcome message
 
@@ -168,14 +165,17 @@ http://`server_domain_or_IP`/info.php
 
 ![image](https://user-images.githubusercontent.com/98546783/155307893-555050a5-ad27-41eb-aea5-c6396bf123c0.png)
 
+---
 
 - I used below cmd to remove the file I created:
 
-
+---
 sudo rm /var/www/projectdomain/info.php
+---
 
 ![image](https://user-images.githubusercontent.com/98546783/155308312-9a77946f-4a74-4634-ba31-946f14c60f2a.png)
 
+---
 
 ### RETRIEVING DATA FROM MYSQL DATABASE WITH PHP ###
 
@@ -183,11 +183,15 @@ sudo rm /var/www/projectdomain/info.php
 - The aim is to do a simple "To do list" and configure access to it, so the Nginx website 
 would be able to query data from the DB and display it.
 
+---
 - I ran the command below to connect to mysql
 'sudo mysql'
 
+
+---
 - To create a new database, I run the following command from your MySQL console:
 
+---
 
  CREATE DATABASE `example_database`;        (the name of the database is example_database)
 
@@ -195,30 +199,32 @@ would be able to query data from the DB and display it.
 - The below command was to create a new user **example_user** 
 
 CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+---
 
 The below cmd was to give this user permission over the example_database database:
+---
 
- GRANT ALL ON example_database.* TO 'example_user'@'%';
+ - GRANT ALL ON example_database.* TO 'example_user'@'%';
 
-Refenence below screenshot:
-
+- Refenence below screenshot:
+---
 
 
 ![image](https://user-images.githubusercontent.com/98546783/155321042-f9087fdd-a6b2-4800-8927-a1fa942e417f.png)
 
 
-
+---
 
 ![image](https://user-images.githubusercontent.com/98546783/155321381-db54712d-5960-49ae-9797-af558ec67e57.png)
 
-
+---
 ![image](https://user-images.githubusercontent.com/98546783/155321654-409d7065-061a-4c36-96c5-4e842476af5e.png)
 
 AFterwards, I exited.
 
 mysql> exit
 
-I tested if the newuser has permission in the database using:
+- I tested if the newuser has permission in the database using:
 
 mysql -u example_user -p
 
