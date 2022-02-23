@@ -33,4 +33,45 @@ sudo mysql_secure_installation
 At some point i was asked to select a password MySQL root userand I did.
 WHen finished i entered the mysql console using the command below and also got the screenshot below;
 sudo mysql
-![14](https://user-images.githubusercontent.com/98546783/155352578-11e1be4c-6926-4fdc-b029-dc1b18d26b2b.jpg)
+![image](https://user-images.githubusercontent.com/98546783/155353312-d2cd6c8a-faea-4f3e-8e86-806ed1d3ea9b.png)
+I exited using mysql> exit
+**INSTALLING PHP**
+The cmd below installes:
+PHP which is the component of our setup that will process code to display dynamic content to the end user. In addition to the php package, I"ll install php-mysql, a PHP module that allows PHP to communicate with MySQL-based databases. Lastly, I"ll need libapache2-mod-php to enable Apache to handle PHP files. Core PHP packages will automatically be installed as dependencies.
+sudo apt install php libapache2-mod-php php-mysql
+
+![image](https://user-images.githubusercontent.com/98546783/155356415-1d42b4c3-419c-4ec7-a44d-49eaab354148.png)
+
+**CREATING A VIRTUAL HOST FOR YOUR WEBSITE USING APACHE**
+I will be using a domain called 'projectdomain.' Apache on Ubuntu 20.04 has one server block enabled by default that is configured to serve documents from the /var/www/html directory.
+I will be adding my own directory next to the default one with the cmd below:
+sudo mkdir /var/www/projectdomain
+Next cmd is to assign ownership of the directory
+sudo chown -R $USER:$USER /var/www/projectdomain
+ create and open a new configuration file in Apache’s sites-available directory using vi
+ sudo vi /etc/apache2/sites-available/projectdomain.conf
+ This will create a blank new file. We are inputing the below after pressing "i"
+ <VirtualHost *:80>
+    ServerName projectdomain
+    ServerAlias www.projectdomain 
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/projectdomain
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+*Afterwwards, we Hit the esc button on the keyboard
+Type :
+Type wq. w for write and q for quit
+Hit ENTER to save the file*
+If we now use the ls cmd to view the file in the directory : 
+sudo ls /etc/apache2/sites-available
+![image](https://user-images.githubusercontent.com/98546783/155367797-c81aeb47-004d-4d87-889a-def58314a4ef.png)
+
+I used a2ensite command to enable the new virtual host:
+sudo a2ensite projectlamp
+I disabled the default site that comes with APache using:
+sudo a2dissite 000-default
+
+To make sure your configuration file doesn’t contain syntax errors,  I ran:
+sudo apache2ctl configtest and sudo systemctl reload apache2 to reload it
+
