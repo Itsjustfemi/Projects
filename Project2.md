@@ -110,5 +110,54 @@ server {
  
  ![image](https://user-images.githubusercontent.com/98546783/155303745-a4d981f6-5b60-4dba-97c7-6781ce767211.png)
 
+I ran the below code to test my cmd for syntax error and as shown, the result is sucessful.
+ 
+ ![image](https://user-images.githubusercontent.com/98546783/155304291-b478a192-23eb-4022-aa67-e8897028fa46.png)
+ 
+ The below 2cmds is to  disable default Nginx host that is currently configured to listen on port 80; and reload Nginx to apply the changes:
+ 'sudo unlink /etc/nginx/sites-enabled/default'
+ 'sudo systemctl reload nginx'
+ 
+ ![image](https://user-images.githubusercontent.com/98546783/155305150-3eb25623-9ec1-4d93-b9e7-4ac586964bd8.png)
+ 
+ Then I Created an index.html file in that location so that we can test that your new server block works as expected.
+ sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectdomain/index.html
+ 
+ ![image](https://user-images.githubusercontent.com/98546783/155305515-989a27ed-1079-4a71-92af-db23f22b72ff.png)
+ 
+ So i proceeded to write check the browser on what I wrote on http://<Public-IP-Address>:80. I saw the exact same thing on the command above
+
+ ![image](https://user-images.githubusercontent.com/98546783/155305817-7904b252-e294-41b4-9a6f-c055344a29f0.png)
+ 
+ ## TESTING PHP WITH NGINX ##
+ I Opened a new file called info.php within my document root in my text editor to confirm Nginx can correctly hand .php files off to my PHP processor:
+
+sudo nano /var/www/projectdomain/info.php
+ 
+ ![image](https://user-images.githubusercontent.com/98546783/155306632-65b6c7dc-7704-431e-a307-740c065abfb0.png)
+ 
+ Afterwards, I pasted the php code and saved it. (to return information about my server)
+ 
+ <?php
+phpinfo();
+
+i tried the cmd on my browsser and got the welcome message
+http://`server_domain_or_IP`/info.php
+
+![image](https://user-images.githubusercontent.com/98546783/155307893-555050a5-ad27-41eb-aea5-c6396bf123c0.png)
+
+I used below cmd to remove the file I created:
+
+sudo rm /var/www/projectdomain/info.php
+
+![image](https://user-images.githubusercontent.com/98546783/155308312-9a77946f-4a74-4634-ba31-946f14c60f2a.png)
+
+
+
+
+
+
+
+
 
  
