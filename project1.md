@@ -1,4 +1,4 @@
-# WEB STACK IMPLEMENTATION (LAMP STACK) IN AWS #
+## WEB STACK IMPLEMENTATION (LAMP STACK) IN AWS ##
 I already have my Ec2 instance created so I just connected  via ssh e,g ssh -i <Your-private-key.pem> ubuntu@
 I already have gitbash and ubuntu terminal installed. 
 **Roadblock1**
@@ -53,8 +53,11 @@ Next cmd is to assign ownership of the directory
 
 sudo chown -R $USER:$USER /var/www/projectdomain
 
+
 create and open a new configuration file in Apache’s sites-available directory using vi
+
  sudo vi /etc/apache2/sites-available/projectdomain.conf
+ 
  This will create a blank new file. We are inputing the below after pressing "i"
  <VirtualHost *:80>
     ServerName projectdomain
@@ -67,14 +70,21 @@ create and open a new configuration file in Apache’s sites-available directory
 
 *Afterwwards, we Hit the esc button on the keyboard
 Type :
+
 Type wq. and Hit ENTER to save the file*
+
 If we now use the ls cmd to view the file in the directory : 
+
 sudo ls /etc/apache2/sites-available
+
 ![image](https://user-images.githubusercontent.com/98546783/155367797-c81aeb47-004d-4d87-889a-def58314a4ef.png)
 
 I used a2ensite command to enable the new virtual host:
+
 sudo a2ensite projectlamp
+
 I disabled the default site that comes with APache using:
+
 sudo a2dissite 000-default
 
 To make sure your configuration file doesn’t contain syntax errors,  I ran:
@@ -85,24 +95,25 @@ sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/met
 
 WHen i tried going to the browser to access it. I got a message that contains exactly what i put in the cmd above (screenshot unavailable)
 
-To #ENABLE PHP ON THE WEBSITE# we edit the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the DirectoryIndex directive:
+To #ENABLE PHP ON THE WEBSITE# we edit the /etc/apache2/mods-enabled/dir.conf file and change the order in
+which the index.php file is listed within the DirectoryIndex directive:
 sudo vim /etc/apache2/mods-enabled/dir.conf
 
-<IfModule mod_dir.c>
+>IfModule mod_dir.c>
         #Change this:
         #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
         #To this:
         DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
-</IfModule>
+>/IfModule>
 
-After saving and closing the file, i reloaded Apache so the changes take effect:
+- After saving and closing the file, i reloaded Apache so the changes take effect:
 sudo systemctl reload apache2
 
-Finally, I created a PHP script to test that PHP is correctly installed and configured on my server.
+- Finally, I created a PHP script to test that PHP is correctly installed and configured on my server.
 vim /var/www/projectdomain/index.php
-it will open a blanc file and i put the belw cmd inside
+- it will open a blanc file and i put the belw cmd inside
 
-I refreshed my page and saw the following:
+- I refreshed my page and saw the following:
 LAstly i removed the file because it contians sensitive information:
 sudo rm /var/www/projectlamp/index.php
 ![image](https://user-images.githubusercontent.com/98546783/155375803-4d2df95e-28ec-4657-8f5e-3f6fce743a95.png)
