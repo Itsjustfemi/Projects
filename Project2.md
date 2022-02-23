@@ -141,7 +141,7 @@ I ran the below code to test my cmd for syntax error and as shown, the result is
  ![image](https://user-images.githubusercontent.com/98546783/155305817-7904b252-e294-41b4-9a6f-c055344a29f0.png)
  
  
- ## TESTING PHP WITH NGINX ##
+ ### TESTING PHP WITH NGINX ###
  I Opened a new file called info.php within my document root in my text editor to confirm Nginx can correctly hand .php files off to my PHP processor:
 
  
@@ -170,7 +170,9 @@ sudo rm /var/www/projectdomain/info.php
 
 ![image](https://user-images.githubusercontent.com/98546783/155308312-9a77946f-4a74-4634-ba31-946f14c60f2a.png)
 
+
 ### RETRIEVING DATA FROM MYSQL DATABASE WITH PHP ###
+
 
 The aim is to do a simple "To do list" and configure access to it, so the Nginx website 
 would be able to query data from the DB and display it.
@@ -179,18 +181,24 @@ I ran the command below to connect to mysql
 'sudo mysql'
 
 To create a new database, I run the following command from your MySQL console:
-mysql> CREATE DATABASE `example_database`;        (the name of the database is example_database)
+
+
+ CREATE DATABASE `example_database`;        (the name of the database is example_database)
+
 
 The below command was to create a new user **example_user** 
-mysql>  CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 
 The below cmd was to give this user permission over the example_database database:
 
-mysql> GRANT ALL ON example_database.* TO 'example_user'@'%';
+ GRANT ALL ON example_database.* TO 'example_user'@'%';
 
 Refenence below screenshot:
 
+
+
 ![image](https://user-images.githubusercontent.com/98546783/155321042-f9087fdd-a6b2-4800-8927-a1fa942e417f.png)
+
 
 
 
@@ -200,6 +208,7 @@ Refenence below screenshot:
 ![image](https://user-images.githubusercontent.com/98546783/155321654-409d7065-061a-4c36-96c5-4e842476af5e.png)
 
 AFterwards, I exited.
+
 mysql> exit
 
 I tested if the newuser has permission in the database using:
@@ -209,7 +218,11 @@ mysql -u example_user -p
 
 mysql> SHOW DATABASES;
 
+
+
 ![image](https://user-images.githubusercontent.com/98546783/155322953-64010115-1542-4e14-8ee7-2c37d94afe1d.png)
+
+
 
 
 I proceeded to create a todo list:
@@ -258,11 +271,13 @@ try {
     die();
 }
 
---------------
+
 **ROADBLOCK2** :
+
 After running the above code, and running http://<Public_domain_or_IP>/todo_list.php
 
 I discovered an error message. I don't have the screenshot anymore but it was pointing to the password i used in the block of code above. 
+
 I had to use the right password and accessed my public IP and it went through
 
 ![image](https://user-images.githubusercontent.com/98546783/155329462-e093c490-4761-4de0-bebb-fa8c8ad98903.png)
