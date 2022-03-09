@@ -491,3 +491,14 @@ When you are in the Todo directory run:
 
 npm run dev
 ![image](https://user-images.githubusercontent.com/98546783/157556929-06f4ea67-6eaa-4c4e-a3db-b98d35c78d0f.png)
+
+Populate the files with appropriate contents
+
+Open port 3000 for incoming TCP traffic Set brower to your Public IP and port 3000 ip-address:3000
+![image](https://user-images.githubusercontent.com/98546783/157557432-c57810d7-e7cc-40bd-b15d-8852f48081af.png)
+
+## ROAD BLOCK ##
+The app was not showing on my public browser at first. Only the logo was showing 
+![image](https://user-images.githubusercontent.com/98546783/157557773-59bc84ad-c963-4eeb-9200-8a40cd37e00a.png)
+
+It was until I doublechecked on my ListTodo.js folder, I saw using the `command` that it was empty. So i inputed the right script accordinly
