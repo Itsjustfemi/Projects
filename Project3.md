@@ -46,10 +46,11 @@ touch index.js
  Install dotenv
 ```
 npm install dotenv
-
+```
 ![image](https://user-images.githubusercontent.com/98546783/157543069-c1b5c4ba-bfc3-498e-8326-b040fe1afeaa.png)
 
-```
+![s](https://user-images.githubusercontent.com/98546783/157543736-1d85c80b-ee2c-424d-814b-4fd9db733645.jpg)
+
 populate the index.js file
 Using vim, paste the code below in the file
 ```
@@ -114,3 +115,379 @@ Go into todo directory, Install moongose, a no-sql database and create todo.js f
 mkdir models && cd models && touch todo.js
 
 ```
+ MONGODB Database
+mLab provide Mongodb as a DBaaS, click [here](https://www.mongodb.com/atlas-signup-from-mlab) to sign up
+Create an account and then setup your project with it database
+Copy the connection string as seen below
+
+moongose connection string as below:
+
+![image](https://user-images.githubusercontent.com/98546783/157545044-601cf2c3-367b-4f56-9bb6-9e5344364397.png)
+
+Copy and paste the content of the connection string into .env file you will create in todo directory Update the content of index.js file to reflect that .env file is being used for database connection purposes
+
+Run the engine again with
+node index.js
+
+POSTMAN Is a browser on steroids. It will be used to test the API We will perform CRUD (Creat, Read, Update and Delete)
+See the screenshots below to see how it is done with Postman
+
+![image](https://user-images.githubusercontent.com/98546783/157551287-91d7f5dd-d3dd-4a32-b554-eb92f6a77a25.png)
+![image](https://user-images.githubusercontent.com/98546783/157552667-b2ead802-0496-4012-8318-295e91875233.png)
+![image](https://user-images.githubusercontent.com/98546783/157552748-7334a997-e92c-4742-bd9f-5b0c68ae6e82.png)
+![image](https://user-images.githubusercontent.com/98546783/157552806-c81137c0-5f15-4daf-bda3-c8d6436f6394.png)
+![image](https://user-images.githubusercontent.com/98546783/157554098-155f0586-6d52-433f-8a9e-ae753259addf.png)
+
+FRONTEND CREATION
+In the todo directory, `run npx create-react-app client`
+this will create a new folder in your Todo directory called client
+Run the following dependency below:
+npm install concurrently --save-dev
+Install nodemon. It is used to run and monitor the server. 
+`npm install nodemon --save-dev`
+
+paste below in the package.json file inside todo folder
+``` 
+
+"scripts": {
+"start": "node index.js",
+"start-watch": "nodemon index.js",
+"dev": "concurrently \"npm run start-watch\" \"cd client && npm start\""
+},
+
+```
+
+cd client
+Open the package.json file
+`vi package.json`
+Add the key value pair in the package.json file "proxy": "http://localhost:5000".
+
+Now, ensure you are inside the Todo directory, and simply do:
+
+`npm run dev`
+***Creating your React Components***
+cd client
+move to the src directory
+
+`cd src`
+Inside your src folder create another folder called components
+
+mkdir components
+
+`cd components`
+Inside ‘components’ directory create three files Input.js, ListTodo.js and Todo.js.
+
+`touch Input.js ListTodo.js Todo.js`
+`vi Input.js`
+
+```
+
+import React, { Component } from 'react';
+import axios from 'axios';
+
+class Input extends Component {
+
+state = {
+action: ""
+}
+
+addTodo = () => {
+const task = {action: this.state.action}
+
+    if(task.action && task.action.length > 0){
+      axios.post('/api/todos', task)
+        .then(res => {
+          if(res.data){
+            this.props.getTodos();
+            this.setState({action: ""})
+          }
+        })
+        .catch(err => console.log(err))
+    }else {
+      console.log('input field required')
+    }
+
+}
+
+handleChange = (e) => {
+this.setState({
+action: e.target.value
+})
+}
+
+render() {
+let { action } = this.state;
+return (
+<div>
+<input type="text" onChange={this.handleChange} value={action} />
+<button onClick={this.addTodo}>add todo</button>
+</div>
+)
+}
+}
+
+export default Input
+```
+
+To make use of Axios 
+Move to the src folder
+
+cd ..
+Move to clients folder
+
+cd ..
+Install Axios
+
+npm install axios
+
+cd src/components
+
+vi ListTodo.js
+paste 
+
+```
+
+import React from 'react';
+
+const ListTodo = ({ todos, deleteTodo }) => {
+
+return (
+<ul>
+{
+todos &&
+todos.length > 0 ?
+(
+todos.map(todo => {
+return (
+<li key={todo._id} onClick={() => deleteTodo(todo._id)}>{todo.action}</li>
+)
+})
+)
+:
+(
+<li>No todo(s) left</li>
+)
+}
+</ul>
+)
+}
+
+export default ListTodo
+```
+
+Then in your Todo.js file you write the following code
+
+```
+
+import React, {Component} from 'react';
+import axios from 'axios';
+
+import Input from './Input';
+import ListTodo from './ListTodo';
+
+class Todo extends Component {
+
+state = {
+todos: []
+}
+
+componentDidMount(){
+this.getTodos();
+}
+
+getTodos = () => {
+axios.get('/api/todos')
+.then(res => {
+if(res.data){
+this.setState({
+todos: res.data
+})
+}
+})
+.catch(err => console.log(err))
+}
+
+deleteTodo = (id) => {
+
+    axios.delete(`/api/todos/${id}`)
+      .then(res => {
+        if(res.data){
+          this.getTodos()
+        }
+      })
+      .catch(err => console.log(err))
+
+}
+
+render() {
+let { todos } = this.state;
+
+    return(
+      <div>
+        <h1>My Todo(s)</h1>
+        <Input getTodos={this.getTodos}/>
+        <ListTodo todos={todos} deleteTodo={this.deleteTodo}/>
+      </div>
+    )
+
+}
+}
+
+export default Todo;
+```
+
+We need to make little adjustment to our react code. Delete the logo and adjust our App.js to look like this.
+
+Move to the src folder
+
+cd ..
+Make sure that you are in the src folder and run
+
+vi App.js
+Copy and paste the code below into it
+```
+import React from 'react';
+
+import Todo from './components/Todo';
+import './App.css';
+
+const App = () => {
+return (
+<div className="App">
+<Todo />
+</div>
+);
+}
+
+export default App;
+```
+
+In the src directory open the App.css
+
+vi App.css
+Then paste the following code into App.css:
+```
+
+.App {
+text-align: center;
+font-size: calc(10px + 2vmin);
+width: 60%;
+margin-left: auto;
+margin-right: auto;
+}
+
+input {
+height: 40px;
+width: 50%;
+border: none;
+border-bottom: 2px #101113 solid;
+background: none;
+font-size: 1.5rem;
+color: #787a80;
+}
+
+input:focus {
+outline: none;
+}
+
+button {
+width: 25%;
+height: 45px;
+border: none;
+margin-left: 10px;
+font-size: 25px;
+background: #101113;
+border-radius: 5px;
+color: #787a80;
+cursor: pointer;
+}
+
+button:focus {
+outline: none;
+}
+
+ul {
+list-style: none;
+text-align: left;
+padding: 15px;
+background: #171a1f;
+border-radius: 5px;
+}
+
+li {
+padding: 15px;
+font-size: 1.5rem;
+margin-bottom: 15px;
+background: #282c34;
+border-radius: 5px;
+overflow-wrap: break-word;
+cursor: pointer;
+}
+
+@media only screen and (min-width: 300px) {
+.App {
+width: 80%;
+}
+
+input {
+width: 100%
+}
+
+button {
+width: 100%;
+margin-top: 15px;
+margin-left: 0;
+}
+}
+
+@media only screen and (min-width: 640px) {
+.App {
+width: 60%;
+}
+
+input {
+width: 50%;
+}
+
+button {
+width: 30%;
+margin-left: 10px;
+margin-top: 0;
+}
+}
+
+```
+
+In the src directory open the index.css
+
+vim index.css
+Copy and paste the code below:
+
+```
+body {
+margin: 0;
+padding: 0;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+sans-serif;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+box-sizing: border-box;
+background-color: #282c34;
+color: #787a80;
+}
+
+code {
+font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+monospace;
+}
+
+```
+
+Go to the Todo directory
+
+cd ../..
+When you are in the Todo directory run:
+
+npm run dev
+![image](https://user-images.githubusercontent.com/98546783/157556929-06f4ea67-6eaa-4c4e-a3db-b98d35c78d0f.png)
