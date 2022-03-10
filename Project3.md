@@ -122,7 +122,13 @@ Copy the connection string as seen below
 
 moongose connection string as below:
 
-![image](https://user-images.githubusercontent.com/98546783/157545044-601cf2c3-367b-4f56-9bb6-9e5344364397.png)
+
+![image](https://user-images.githubusercontent.com/98546783/157560576-6f62e27b-473b-474d-aa0e-6b9096a16997.png)
+
+
+Ofcourse we already enabled the Ip address to anywhere
+![image](https://user-images.githubusercontent.com/98546783/157560441-8c294da5-412c-4753-a526-0386c4aca7dd.png)
+
 
 Copy and paste the content of the connection string into .env file you will create in todo directory Update the content of index.js file to reflect that .env file is being used for database connection purposes
 
@@ -139,11 +145,16 @@ See the screenshots below to see how it is done with Postman
 ![image](https://user-images.githubusercontent.com/98546783/157554098-155f0586-6d52-433f-8a9e-ae753259addf.png)
 
 FRONTEND CREATION
-In the todo directory, `run npx create-react-app client`
+In the todo directory, 
+
+`run npx create-react-app client`
 this will create a new folder in your Todo directory called client
 Run the following dependency below:
-npm install concurrently --save-dev
+
+`npm install concurrently --save-dev`
+
 Install nodemon. It is used to run and monitor the server. 
+
 `npm install nodemon --save-dev`
 
 paste below in the package.json file inside todo folder
@@ -157,16 +168,22 @@ paste below in the package.json file inside todo folder
 
 ```
 
-cd client
-Open the package.json file
+`cd client`
+
+- Open the package.json file
+
+
 `vi package.json`
 Add the key value pair in the package.json file "proxy": "http://localhost:5000".
 
 Now, ensure you are inside the Todo directory, and simply do:
 
 `npm run dev`
+
 ***Creating your React Components***
-cd client
+
+`cd client`
+
 move to the src directory
 
 `cd src`
