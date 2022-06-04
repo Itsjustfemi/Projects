@@ -77,14 +77,18 @@ sudo passwd -x 5 $user
 remote server (Ec2 instance) using `scp` command. Screeshot below:
 
 * Now i ssh to my instance and when i did an 'ls', i sAW the onboard.sh file there. Screenshot below
+* 
 
 ![ls onborad sh](https://user-images.githubusercontent.com/98546783/172025798-93ee7de9-f995-467b-86c5-7843b616f5d6.jpg)
+
 
 * 
 ![scp confirm](https://user-images.githubusercontent.com/98546783/172025506-cdc004da-6cc8-4fc6-8b38-94f5ae559a51.jpg)
 
 
 * Now we create a folder called shell and move into it (screenshot)
+
+
 ![create shell and move into it](https://user-images.githubusercontent.com/98546783/172025558-a5990d77-cba2-48fb-b580-95a00c04b5d9.jpg)
 
 Now we move the onboard.sh from the ubuntu dir to the shell dir.
@@ -101,7 +105,9 @@ Now we changed directory to the shell directory and create the public key , priv
  
 - I did the same for the csv file and private key file as well. In the csv file, i put in some names there that would have permission to access the server. (screenshot below)
 
+
 ![cat names csv](https://user-images.githubusercontent.com/98546783/172025619-dcceac39-c3db-453e-a4bb-8596d5cf008c.jpg)
+
 
 - I opened the onboard script (`vi onboard.sh`) and changed the path to point to my public folder; so it can copy to the authorised keys of the remote folders. (screenshot below)
 
