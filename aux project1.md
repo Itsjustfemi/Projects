@@ -78,8 +78,14 @@ remote server (Ec2 instance) using `scp` command. Screeshot below:
 
 * Now i ssh to my instance and when i did an 'ls', i sAW the onboard.sh file there. Screenshot below
 
+![ls onborad sh](https://user-images.githubusercontent.com/98546783/172025798-93ee7de9-f995-467b-86c5-7843b616f5d6.jpg)
+
+* 
+![scp confirm](https://user-images.githubusercontent.com/98546783/172025506-cdc004da-6cc8-4fc6-8b38-94f5ae559a51.jpg)
+
 
 * Now we create a folder called shell and move into it (screenshot)
+![create shell and move into it](https://user-images.githubusercontent.com/98546783/172025558-a5990d77-cba2-48fb-b580-95a00c04b5d9.jpg)
 
 Now we move the onboard.sh from the ubuntu dir to the shell dir.
 
@@ -89,26 +95,46 @@ Now we changed directory to the shell directory and create the public key , priv
 
 ` touch id_rsa id_rsa.pub names.csv`
 
-we open the public key and put the key inside
+- we open the public key and put the key inside
 
 `vi id_rsa.pub`
  
-I did the same for the csv file and private key file as well. In the csv file, i put in some names there that would have permission to access the server. (screenshot)
+- I did the same for the csv file and private key file as well. In the csv file, i put in some names there that would have permission to access the server. (screenshot below)
 
-I opened the onboard script (`vi onboard.sh`) and changed the path to point to my public folder; so it can copy to the authorised keys of the remote folders. (screenshot below)
+![cat names csv](https://user-images.githubusercontent.com/98546783/172025619-dcceac39-c3db-453e-a4bb-8596d5cf008c.jpg)
 
-After that, I proceeded in creating the group developers using `sudo groupadd developers`
+- I opened the onboard script (`vi onboard.sh`) and changed the path to point to my public folder; so it can copy to the authorised keys of the remote folders. (screenshot below)
 
-Now its time to run my scripting, but before then, i needed to give the .sh file executable permission
+![changed path](https://user-images.githubusercontent.com/98546783/172025654-ca5bf5c3-222a-42a4-85fc-aa1fc9e8eb81.jpg)
+
+
+
+- After that, I proceeded in creating the group developers using `sudo groupadd developers`
+
+- Now its time to run my scripting, but before then, i needed to give the .sh file executable permission
 
 `sudo chmod +x onboard.sh`
 
+![executable permission for sh](https://user-images.githubusercontent.com/98546783/172025857-49ab00cf-3b65-45c2-b4f2-0f68508de693.jpg)
+
+
 - i changed to a root user using `sudo su` and ran the `.onboard.sh` cmd (screenshot below)
+- 
+![onboard sh gangan](https://user-images.githubusercontent.com/98546783/172025833-2610a125-17c2-45d3-85d2-074f1abfe5fa.jpg)
 
 - To further verify; (below screenshot)
+- 
+![check names](https://user-images.githubusercontent.com/98546783/172025875-5d8d2082-26d6-4b1b-ad02-b37ef8501c52.jpg)
 
-* Now we try testing one of the created user to ssh to the server. Before we do that, we will create a keypair (private )on the physical machine the user can log in with.
+* Now we try testing one of the created user to ssh to the server. Before we do that, we will create a keypair (private )on the physical machine the user can log in with. I basically just created the private key on my machine that will connect to the instance (pub key)
+* 
+![vi auxproject pem](https://user-images.githubusercontent.com/98546783/172025927-6e26b2ff-f2d2-4ef0-ac9b-1b7234d48c94.jpg)
 
-After conecting as femi, I did an `ls` and could see that the group developers is there
+![femi connecting to server](https://user-images.githubusercontent.com/98546783/172025952-8d7bf615-32db-4023-95e0-347656362912.jpg)
 
-- I did an `ls` whle connected as femi and also an ls iside the .ssh folder (screenshot below). The files are intact as per the script. I could see the pub key in the authorized file.
+- After conecting as femi, I did an `ls` and could see that the group developers is there
+
+
+- I did an `ls` whle connected as femi and also an ls inside the .ssh folder (screenshot below). The files are intact as per the script. I could see the pub key in the authorized file.
+- 
+![ls femi ls  ssh](https://user-images.githubusercontent.com/98546783/172025988-9ecd943f-29ec-47d3-942e-2335c7ad920c.jpg)
